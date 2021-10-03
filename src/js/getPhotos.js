@@ -3,29 +3,32 @@ import template from '../tempales/photoArray.handlebars';
 import refs from '../js/refs';
 const { cardList, themeChange } = refs;
 let result = template(data);
-// console.log(result);
-// console.log(cardList);
+
 cardList.insertAdjacentHTML('beforeend', result);
 
-// console.log(themeChange.checked);
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
 
 themeChange.addEventListener('change', e => {
   if (e.target.checked) {
-    document.querySelector('body').classList.add('dark-theme');
+    document.body.classList.add(Theme.DARK);
     localStorage.setItem('theme', 'dark-theme');
   } else {
-    document.querySelector('body').classList.remove('dark-theme');
+    document.body.classList.add(Theme.LIGHT);
+    document.body.classList.remove(Theme.DARK);
     localStorage.removeItem('theme');
   }
 });
 
 let theme = localStorage.getItem('theme');
-// console.log(theme);
 
 if (theme) {
-  document.querySelector('body').classList.add('dark-theme');
+  document.body.classList.add(Theme.DARK);
   themeChange.checked = true;
 } else {
-  document.querySelector('body').classList.remove('dark-theme');
+  document.body.classList.add(Theme.LIGHT);
+  document.body.classList.remove(Theme.DARK);
   themeChange.checked = false;
 }
